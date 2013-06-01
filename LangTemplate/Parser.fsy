@@ -1,0 +1,32 @@
+﻿%{
+
+%}
+
+// All tokens signaled with %start will become
+// functions in the parser object
+%start Start
+
+// Regular tokens
+%token < string > IDENTIFIER
+%token < string > STRING
+%token < char > CHAR
+%token < double > NUMBER
+%token QUOTE_STRING
+
+// Misc tokens
+%token EOF
+
+// This is the type of the data produced by a successful reduction of the 'start'
+// symbol:
+%type < string > Start
+
+
+%%
+
+// These are the rules of the grammar along with the F# code of the 
+// actions executed as rules are reduced.  
+Start: Expression EOF						{ $1 }
+
+Expression:
+	| IDENTIFIER							{ $1 }
+	| STRING								{ $1 }
